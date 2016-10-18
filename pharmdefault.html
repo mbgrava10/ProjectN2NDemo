@@ -12,6 +12,8 @@
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/common.js"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -32,8 +34,6 @@
 
                     var pharmId = getParameterByName("pharmid");
 
-                    var listName = "productList";
-                    var pds = amplify.store(listName);
                     var headStr = "";
 
                     headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
@@ -58,7 +58,7 @@
                     headStr += "<li><a href='default.html'>Logout</a></li>";
                     headStr += "</ul>";
                     headStr += "</nav>";
-                    //alert()
+                    //alert(headStr);
                     document.getElementById("header").innerHTML = headStr;
                 </script>
             </header>

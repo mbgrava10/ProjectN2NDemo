@@ -69,19 +69,49 @@
 				<section class='box'>
                 <div id="productList" class="box">
                     <script>
+
+                        function getParameterByName(name) {
+                            var url = window.location.href;
+                            name = name.replace(/[\[\]]/g, "\\$&");
+                            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                results = regex.exec(url);
+                            if (!results) return null;
+                            if (!results[2]) return '';
+                            return decodeURIComponent(results[2].replace(/\+/g, " "));
+                        }
+
+                        var pharmId = getParameterByName("pharmid");
+
+                        var pharmName = "";
+
+                        switch(pharmId)
+                        {
+                            case "ABC":
+                                pharmName = "ABC Co";
+                                break;
+                            case "DEF":
+                                pharmName = "DEF Corp";
+                                break;
+                            case "GHI":
+                                pharmName = "ABC Co";
+                                break;
+                            default:
+                                pharmName = "ABC Co";
+                                break;
+                        }
+
                         var listName = "productList";
                         var pds = amplify.store(listName);
                         //alert(clinicians);
                         var strSel = "";
-                        //alert(pds.length);
-                        //function createList() {
-                        //create pending
+                        
+
                         strSel += "<header><h2>Product List</h2><hr/></header><div class='table-wrapper'><table><thead><tr><th>Name</th><th>Date Added</th><th>Added By</th><th>Status</th><th>No. of Patients Enrolled</th></tr></thead><tbody>";
                         
                         for (var i = 0; i < pds.length; i++) {
                             //alert(i);
                             var px = pds[i];
-                            if (px.pharmaco == "ABC Co") {
+                            if (px.pharmaco == pharmName) {
                                 strSel += "<tr><td><a href='pharmproductdetails.html?id=" + px.id + "'>" + px.name + "</a></td>";
                                 strSel += "<td>" + px.regdate + "</td>";
                                 strSel += "<td>" + px.productrep + "</td>";
