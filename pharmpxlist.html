@@ -1,0 +1,175 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Elements - Alpha by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/common.js"></script>
+        
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var pharmId = getParameterByName("pharmid");
+
+                    var listName = "productList";
+                    var pds = amplify.store(listName);
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdefault.html?pharmid=" + pharmId + "'>Home</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Products</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmproductreg.html?pharmid=" + pharmId + "'>Register Product</a></li>";
+                    headStr += "<li><a href='pharmproductslist.html?pharmid=" + pharmId + "'>Product List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Documents</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdocadd.html?pharmid=" + pharmId + "'>Add Document</a></li>";
+                    headStr += "<li><a href='pharmdoclist.html?pharmid=" + pharmId + "'>Uploaded Documents</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='pharmpxlist.html?pharmid=" + pharmId + "'>Patient Tracking</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert()
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+                    <div id="pxList" class="box">
+                        <script>
+
+                            function getParameterByName(name) {
+                                var url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                            }
+
+                            var pharmId = getParameterByName("pharmid");
+                            //var pxId = getParameterByName("pxid");
+                            //alert(pxId);
+                            var pharmName = "";
+
+                            switch (pharmId) {
+                                case "ABC":
+                                    pharmName = "ABC Co";
+                                    break;
+                                case "DEF":
+                                    pharmName = "DEF Corp";
+                                    break;
+                                case "GHI":
+                                    pharmName = "GHI Meds";
+                                    break;
+                                default:
+                                    pharmName = "";
+                                    break;
+                            }
+
+                            var listName = "productList";
+                            var pxs = amplify.store(listName);
+
+                            var strSel = "";
+                            
+                            strSel += "<header><h4><b>Patient List</b></h4><hr/></header>";
+                            strSel += "<div class='table-wrapper'>";
+                            strSel += "<table><thead><tr><th>Patient Name</th><th>Doctor</th><th>Start Date</th><th>Initial Dose</th><th>Remarks</th></tr></thead><tbody>";
+
+                            for (var i = 0; i < pxs.length; i++) {
+                                var px = pxs[i];
+
+                                if (px.pharmaco == pharmName) {
+                                    if (px.patients.length > 0) {
+
+
+                                        for (var j = 0; j < px.patients.length; j++) {
+
+                                            var pdoc = px.patients[j];
+                                            strSel += "<tr>";
+                                            strSel += "<td><a href='pharmpxdetails.html?pharmid=" + pharmId + "&pxid=" + pdoc.pxid + "'>" + pdoc.pxname + "</a></td>";
+                                            strSel += "<td>" + pdoc.pxdoctor + "</td>";
+                                            strSel += "<td>" + pdoc.startdate + "</td>";
+                                            strSel += "<td>" + pdoc.initialdose + "</td>";
+                                            strSel += "<td>" + pdoc.remarks + "</td>";
+                                            strSel += "</tr>";
+                                        }
+
+                                    }
+
+                                }
+                               
+
+                            }
+
+                            strSel += "</tbody></table></div>";
+                           document.getElementById("pxList").innerHTML = strSel;
+                        </script>
+                    </div>
+
+
+					
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

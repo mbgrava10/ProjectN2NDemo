@@ -1,0 +1,222 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Patient Details</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/common.js"></script>
+        <script src="assets/js/pxdetails.js"></script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var pharmId = getParameterByName("pharmid");
+
+                    var listName = "productList";
+                    var pds = amplify.store(listName);
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdefault.html?pharmid=" + pharmId + "'>Home</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Products</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmproductreg.html?pharmid=" + pharmId + "'>Register Product</a></li>";
+                    headStr += "<li><a href='pharmproductslist.html?pharmid=" + pharmId + "'>Product List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Documents</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdocadd.html?pharmid=" + pharmId + "'>Add Document</a></li>";
+                    headStr += "<li><a href='pharmdoclist.html?pharmid=" + pharmId + "'>Uploaded Documents</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='pharmpxlist.html?pharmid=" + pharmId + "'>Patient Tracking</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert()
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+            <section id="main" class="container">
+                <div id="productList" class="box">
+                  <script>
+                        //get url parameter id
+                        function getParameterByName(name) {
+                            var url = window.location.href;
+                            name = name.replace(/[\[\]]/g, "\\$&");
+                            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                results = regex.exec(url);
+                            if (!results) return null;
+                            if (!results[2]) return '';
+                            return decodeURIComponent(results[2].replace(/\+/g, " "));
+                        }
+
+                        var pId = getParameterByName("pxid");
+                        //alert(pId)
+                        var listName = "patientList";
+                        var pds = amplify.store(listName);
+                        
+                        //alert(pds.length);
+                        //alert(clinicians);
+                        var strSel = "";
+                        //alert(pds.length);
+                        //function createList() {
+                        //create pending
+                        
+
+                        for (var i = 0; i < pds.length; i++) {
+                            //alert(i);
+                            var px = pds[i];
+                            if (px.id == pId) {
+                                //alert(px.id);
+                                strSel += "<div class='row uniform 50%' >";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += " <h3><span style='color: #3333cc; font-weight: bold;' >" + px.name + "</span></h3>";
+                                strSel += "     <div style='float:left; width: 200px;'>";
+                                strSel += "<div>" + px.gender + ", " + px.age + "</div>";
+                                strSel += "<div>HP: " + px.hphone + "</div>";
+                                strSel += "<div>Landline: " + px.landline + "</div>";
+                                strSel += "<div>" + px.email + "</div>";
+                                strSel += "     </div>";
+                                strSel += "     <div>"; 
+                                strSel += "<div><b>NOK: " + px.NOK + "</b></div>";
+                                strSel += "<div>" + px.Relationship + "</div>";
+                                strSel += "<div>HP: " + px.NOKhphone + "</div>";
+                                strSel += "<div>Landline: " + px.NOKlandline + "</div>";
+                                strSel += "     </div>";
+                                strSel += "  </div>";
+                                strSel += "</div><hr>";
+                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Referral Details</span></h4>";
+                                strSel += "<div class='row uniform 50%' >";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='doctor'><b>Doctor</b></label><input type='text' name='doctor' id='doctor' value='" + px.doctor + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='institution'><b>Institution</b></label><input type='text' name='institution' id='institution' value='" + px.institution + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += "</div>"; // end "<div class='row uniform 50%' >";
+                                strSel += "<div class='row uniform 50%' >";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='regdate'><b>Registration Date</b></label><input type='date' name='regdate' id='regdate' value='" + px.regdate + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='fundingsource'><b>Funding Source</b></label><input type='text' name='fundingsource' id='fundingsource' value='" + px.fundingsource + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += "</div><hr>"; // end "<div class='row uniform 50%' >";
+                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Medication Details</span></h4>";
+                                strSel += "<div class='row uniform 50%' >";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='medication'><b>Medication</b></label><input type='text' name='medication' id='doctor' value='" + px.medication + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='initialdose'><b>Initial Dose</b></label><input type='text' name='initialdose' id='initialdose' value='" + px.initialdose + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += "</div>"; // end "<div class='row uniform 50%' >";
+                                strSel += "<div class='row uniform 50%' >";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='startdate'><b>Start Date</b></label><input type='date' name='startdate' id='startdate' value='" + px.startdate + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += " <div class='6u 12u(narrower)'>";
+                                strSel += "	    <label for='enddate'><b>Target End Date</b></label><input type='date' name='enddate' id='enddate' value='" + px.enddate + "'/>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += "</div>"; // end "<div class='row uniform 50%' >";
+                                strSel += " <div class='12u'>";
+                                strSel += "	    <label for='notes'><b>Notes</b></label><textarea name='enddate' id='notes' placeholder='" +  px.notes + "'></textarea>";
+                                strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
+                                strSel += "</div><hr>"; // end "<div class='row uniform 50%' >";
+                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4>";
+                                strSel += " <hr>";
+                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Consultation Details</span></h4>";
+                                if(px.visitdetails.length > 0)
+                                {
+                                    strSel += "<div class='table-wrapper'>";
+                                    strSel += "<table><thead><tr><th>Visit Date</th><th>Medication Taken</th><th>Remarks</th><th>Start Date</th><th>Attachments</th></tr></thead><tbody>";
+                                    for (j = 0; j < px.visitdetails.length; j++) {
+                                        var pv = px.visitdetails[j];
+                                        strSel += "<tr>";
+                                        strSel += "<td>" + pv.date + "</td>";
+                                        strSel += "<td>" + pv.medicationtaken + "</td>";
+                                        strSel += "<td>" + pv.remarks + "</td>";
+                                        strSel += "<td>" + pv.startdate + "</td>";
+                                        strSel += "<td><a href='pdf//" + pv.attachment + "'>" + pv.attachment + "</td>";
+                                        strSel += "</tr>";
+                                    }
+
+                                    strSel += "</tbody></table></div>";
+                                }
+
+                                }
+
+                                //strSel += "</div>";
+                            }
+                        //}
+
+                      
+
+                        
+                        //alert(strSel);
+                        document.getElementById("productList").innerHTML = strSel;
+                    </script>
+                </div>
+
+                
+</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

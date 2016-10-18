@@ -1,0 +1,132 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Project N2N - Product List</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/common.js"></script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var pharmId = getParameterByName("pharmid");
+
+                    var listName = "productList";
+                    var pds = amplify.store(listName);
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdefault.html?pharmid=" + pharmId + "'>Home</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Products</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmproductreg.html?pharmid=" + pharmId + "'>Register Product</a></li>";
+                    headStr += "<li><a href='pharmproductslist.html?pharmid=" + pharmId + "'>Product List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Documents</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdocadd.html?pharmid=" + pharmId + "'>Add Document</a></li>";
+                    headStr += "<li><a href='pharmdoclist.html?pharmid=" + pharmId + "'>Uploaded Documents</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='pharmpxlist.html?pharmid=" + pharmId + "'>Patient Tracking</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert()
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section class='box'>
+                <div id="productList" class="box">
+                    <script>
+                        var listName = "productList";
+                        var pds = amplify.store(listName);
+                        //alert(clinicians);
+                        var strSel = "";
+                        //alert(pds.length);
+                        //function createList() {
+                        //create pending
+                        strSel += "<header><h2>Product List</h2><hr/></header><div class='table-wrapper'><table><thead><tr><th>Name</th><th>Date Added</th><th>Added By</th><th>Status</th><th>No. of Patients Enrolled</th></tr></thead><tbody>";
+                        
+                        for (var i = 0; i < pds.length; i++) {
+                            //alert(i);
+                            var px = pds[i];
+                            if (px.pharmaco == "ABC Co") {
+                                strSel += "<tr><td><a href='pharmproductdetails.html?id=" + px.id + "'>" + px.name + "</a></td>";
+                                strSel += "<td>" + px.regdate + "</td>";
+                                strSel += "<td>" + px.productrep + "</td>";
+                                strSel += "<td>" + px.status + "</td>";
+                                strSel += "<td>" + px.patients.length + "</td>";
+                            }
+                        }
+                        //}
+
+                        
+
+                        strSel = strSel + "</tr></tbody></table></div>";
+                        //alert(strSel);
+                        document.getElementById("productList").innerHTML = strSel;
+                    </script>
+                </div>
+            </section>
+
+
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
