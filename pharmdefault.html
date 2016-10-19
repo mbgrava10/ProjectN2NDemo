@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Generic - Alpha by HTML5 UP</title>
+		<title>Pharma Default</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -14,6 +14,8 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <script src="assets/js/amplify.min.js"></script>
         <script src="assets/js/common.js"></script>
+        <script src="assets/js/coordinatortasklist.js"></script>
+        <script src="assets/js/pharmalist.js"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -65,25 +67,141 @@
 
 			<!-- Main -->
 				<section id="main" class="container">
-					<header>
-						<h2>PHARMACY ABC</h2>
-						<p>Default page for Pharmacy ABC</p>
-					</header>
-					<div class="box">
-						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-						<h3>This is a subheading</h3>
-						<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-						<div class="row">
-							<div class="6u 12u(mobilep)">
-								<h3>And now a subheading</h3>
-								<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-							</div>
-							<div class="6u 12u(mobilep)">
-								<h3>And another subheading</h3>
-								<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-							</div>
-						</div>
-					</div>
+                    <div id="requestList" class="box">
+                        <script>
+
+                            function getParameterByName(name) {
+                                var url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                            }
+
+                            var pharmIdx = getParameterByName("pharmid");
+
+                            var taskListName = "taskList";
+                            var task = amplify.store(taskListName);
+
+                            var drugListName = "productList";
+                            var drugs = amplify.store(drugListName);
+
+                            var pharmaListName = "pharmaList";
+                            var pharm = amplify.store(pharmaListName);
+
+                            
+                            var strSel = "";
+
+                            //get pharm detail
+                            for (a = 0; a < pharm.length; a++)
+                            {
+                                var ph = pharm[a];
+                                if(ph.pharmid == pharmIdx)
+                                {
+                                    strSel += "<header><h2><b>" + ph.pharmaname + "</b></h2><hr/></header>";
+                                    strSel += "<div class='row uniform' >";
+                                    strSel += "<div  class='3u 12u(narrower)' style='text-align: center'>";
+                                    strSel += "<img src='" + ph.image + "'/>";
+                                    strSel += "</div>"; //end "<div  class='3u 12u(narrower)'>";
+                                    strSel += "<div  class='9u 12u(narrower)'>";
+                                    strSel += "<div>" + ph.about + "</div><br/>";
+                                    strSel += "<div><b><u>Contact Persons:</u></b> </div>";
+                                    //get rep list
+                                    if (ph.reps.length > 0) {
+                                        for (j = 0; j < ph.reps.length; j++) {
+                                            var rep = ph.reps[j];
+                                            strSel += "<div><b>" + rep.repname + "</b>";
+                                            strSel += "&nbsp;&nbsp;&nbsp;&nbsp;<span class='icon fa-phone'>&nbsp;" + rep.repnumber + "</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class='icon fa-envelope'>&nbsp;<a href='mailto:" + rep.repemail + "'>" + rep.repemail + "</a></span></div>";
+                                        }
+                                    }
+
+
+                                    strSel += "</div>";//end "<div  class='9u 12u(narrower)'>";
+                                    strSel += "</div><hr>"; //<div class='row uniform' >";
+
+                                    var pharmdrug = "";
+                                    //get request list
+                                    strSel += "<div><span style='color: #3333cc; font-weight: bold'>Registered Products in System</span></div><br/>";
+                                    strSel += "<div class='table-wrapper'>";
+                                    strSel += "<table><thead><tr><th>Drug Name</th><th>Product Rep</th><th>Status</th><th>Registration Date</th><th>No. of Patients</th></tr></thead><tbody>";
+                                    
+                                    for(b = 0; b < drugs.length; b++)
+                                    {
+                                        var drug = drugs[b];
+                                        if(drug.pharmaco == ph.pharmaname)
+                                        {
+                                            pharmdrug += drug.name + ";";
+                                            strSel += "<tr>";
+                                            strSel += "<td><a href='pharmproductdetails.html?pharmid=" + pharmId +"&id=" + drug.id + "'>" + drug.name + "</a></td>";
+                                            strSel += "<td>" + drug.productrep + "</td>";
+                                            strSel += "<td>" + drug.status + "</td>";
+                                            strSel += "<td>" + drug.regdate + "</td>";
+                                            strSel += "<td>" + drug.patients.length + "</td>";
+                                            strSel += "</tr>";
+                                        }
+                                    }
+                                    strSel += "</tbody></table></div>";
+                                    strSel += "</div>"; //<div  class='12u 12u(narrower)'>";
+                                    strSel += "</div><br/><hr>";//"<div class='row uniform'>";
+
+                                    //get request list
+                                    strSel += "<div><span style='color: #3333cc; font-weight: bold'>Request List</span></div><br/>";
+                                    strSel += "<div class='table-wrapper'>";
+                                    strSel += "<table><thead><tr><th>SN</th><th>Request Type</th><th>Requested By</th><th>Request Date</th><th>Status</th><th>Last Update Date</th></tr></thead><tbody>";
+                                    //strSel += "<table><thead><tr><th>Request Type</th><th>Requested By</th><th>Requestor Type</th><th>Request Date</th><th>Status</th><th>Related Product</th><th>Last Update Date</th></tr></thead><tbody>";
+
+                                    for (var c = 0; c < task.length; c++) {
+                                        var taskItem = task[c];
+                                        if (pharmdrug.indexOf(taskItem.requestedproduct) !== -1 && taskItem.requeststatus=="Pending Pharma Co Action")
+                                            {
+                                        strSel += "<tr>";
+                                        strSel += "<td>" + taskItem.sn + "</td>";
+                                        strSel += "<td>" + taskItem.requesttype + "</td>";
+                                        strSel += "<td>" + taskItem.requestedby + "</td>";
+                                        //strSel += "<td>" + px.requestortype + "</td>";
+                                        strSel += "<td>" + taskItem.requestdate + "</td>";
+                                        strSel += "<td>" + taskItem.requeststatus + "</td>";
+                                        //strSel += "<td>" + px.requestedproduct + "</td>";
+                                        strSel += "<td>" + taskItem.lastupdate + "</td>";
+                                        strSel += "</tr>";
+                                        }
+                                    }
+
+
+
+                                    strSel += "</tbody></table></div>";
+                                }
+
+
+                            }
+
+                            //strSel += "<div class='table-wrapper'>";
+                            //strSel += "<table><thead><tr><th>SN</th><th>Request Type</th><th>Requested By</th><th>Request Date</th><th>Status</th><th>Last Update Date</th></tr></thead><tbody>";
+                            ////strSel += "<table><thead><tr><th>Request Type</th><th>Requested By</th><th>Requestor Type</th><th>Request Date</th><th>Status</th><th>Related Product</th><th>Last Update Date</th></tr></thead><tbody>";
+
+                            //for (var i = 0; i < task.length; i++) {
+                            //    var tx = task[i];
+                            //    strSel += "<tr>";
+                            //    strSel += "<td><a href='#" + px.id + "'>" + px.sn + "</a></td>";
+                            //    strSel += "<td>" + px.requesttype + "</td>";
+                            //    strSel += "<td>" + px.requestedby + "</td>";
+                            //    //strSel += "<td>" + px.requestortype + "</td>";
+                            //    strSel += "<td>" + px.requestdate + "</td>";
+                            //    strSel += "<td>" + px.requeststatus + "</td>";
+                            //    //strSel += "<td>" + px.requestedproduct + "</td>";
+                            //    strSel += "<td>" + px.lastupdate + "</td>";
+                            //    strSel += "</tr>";
+                            //}
+
+
+
+                            //strSel += "</tbody></table></div>";
+                            document.getElementById("requestList").innerHTML = strSel;
+                        </script>
+                    </div>
+
 				</section>
 
 			<!-- Footer -->

@@ -103,7 +103,7 @@
                             
                             var listName = "productList";
                             var pds = amplify.store(listName);
-                            alert(pds.length);
+                            //alert(pds.length);
                             //alert(clinicians);
                             var strSel = "";
                             //alert(pds.length);
@@ -133,7 +133,8 @@
                                             strSel += "<td>" + pdoc.uploadeddate + "</td>";
                                             strSel += "<td>" + pdoc.uploadedby + "</td>";
                                             strSel += "<td>" + pdoc.availability + "</td>";
-                                            strSel += "<td><a href='docs/" + pdoc.filename + "'>View</a></td>";
+                                            //strSel += "<td><a href='docs/" + pdoc.filename + "'>View</a></td>";
+                                            strSel += "<td>View</a></td>";
                                             strSel += "</tr>";
                                         }
                                        
