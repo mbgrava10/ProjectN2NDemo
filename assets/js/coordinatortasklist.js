@@ -61,7 +61,7 @@ amplify.store("taskList", [
 	"contactdetails":"+639297535712",
 	"requestortype":"Institution Rep",
 	"requestdate":"14-Oct-2016",
-	"requeststatus":"Pending Coordinator Action",
+	"requeststatus":"Pending Pharma Co Action",
 	"requestedproduct":"Invokana",
 	"lastupdate":"-NA-",
   },

@@ -41,13 +41,13 @@ amplify.store("fundingagencyList", [
 	"patients":[
 	{
 	"pxid":"px3",
-	"name":"Yoon Eun-hye",
+	"name":"Wang Hae Soo",
 	"approvaldate":"30-Sept-2016",
 	"status":"",
 	},
 	{
 	"pxid":"px6",
-	"name":"Park Shin Hye",
+	"name":"Go Mi Nam",
 	"approvaldate":"3-Sept-2016",
 	"status":"",
 	},
