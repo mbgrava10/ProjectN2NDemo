@@ -18,29 +18,18 @@ amplify.store("patientList", [
 	"fundingsource":"Funding Agency",
 	"medication":"Invokana",
 	"initialdose":"100 mg once a day",
-	"startdate":"26/09/2016",
+	"startdate":"2016-09-26",
 	"enddate":"",
 	"notes":"Cardiovascular disease, history of hypotension. Elevated haematocrit. Patients will test positive for glycosuria. ",
 	"labs":[
 		{
 		"labname":"HbA1c",
-		"datetaken":"30-Oct-2016",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"25-Jul-2016",
-		"value":"6.4",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"27-Apr-2016",
-		"value":"7.0",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"21-Jan-2016",
-		"value":"7.3",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -101,23 +90,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -178,23 +156,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -255,23 +222,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -332,23 +288,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -409,23 +354,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -486,23 +420,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -563,23 +486,12 @@ amplify.store("patientList", [
 	"labs":[
 	{
 		"labname":"HbA1c",
-		"datetaken":"2016-10-30",
-		"value":"5.7",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-08-08",
-		"value":"6.5",
+		"labname":"Fasting BG",
 		},
 		{
-		"labname":"HbA1c",
-		"datetaken":"2016-5-23",
-		"value":"7.7",
-		},
-		{
-		"labname":"HbA1c",
-		"datetaken":"2016-2-28",
-		"value":"8.2",
+		"labname":"2Hr BG",
 		},
 	],
 	"visitdetails":[
@@ -612,6 +524,138 @@ amplify.store("patientList", [
 		"requesteddate":"2016-08-25",
 		"approvaldate":"2016-09-15",
 		"approvedamount":"3000.00",
+	},
+	],
+  },
+  {
+    "id": "px10",   
+    "picture": "images/patient10.jpg",
+    "age": 45,   
+    "name": "Alexandra West",
+	"gender": "Female",
+	"hphone":"+639188751234",
+	"landline":"+6323297411",
+	"email":"northwest@myemail.com",
+	"NOK":"Diana West",
+	"Relationship":"Sister",
+	"NOKhphone":"+639288522145",
+	"NOKlandline":"+6328529632",
+	"doctor":"Gong Ji-Chul",
+	"institution":"St. Luke's Hospital",
+	"regdate":"2016-10-08",
+	"fundingsource":"Funding Agency",
+	"medication":"Invokana",
+	"initialdose":"100 mg once a day",
+	"startdate":"2016-10-08",
+	"enddate":"",
+	"notes":"Cardiovascular disease, history of hypotension. Elevated haematocrit. Patients will test positive for glycosuria. ",
+	"labs":[
+	{
+		"labname":"HbA1c",
+		},
+		{
+		"labname":"Fasting BG",
+		},
+		{
+		"labname":"2Hr BG",
+		},
+	],
+	"visitdetails":[
+		{
+			"date":"07-Oct-2016",
+			"medicationtaken":"100mg once daily",
+			"remarks":"",
+			"startdate":"08-Oct-2016",
+			"attachment":"yehlab1.pdf",
+		},
+		{
+			"date":"15-Oct-2016",
+			"medicationtaken":"300mg once daily",
+			"remarks":"",
+			"startdate":"16-Oct-2016",
+			"attachment":"yehlab2.pdf",
+		},
+	],
+	"fundingdetails":[
+	{
+	"fundingagency":"PCSO",
+		"requestedamount":"2500.00",
+		"requesteddate":"2016-09-25",
+		"approvaldate":"",
+		"approvedamount":"2500.00",
+	},
+	{
+	"fundingagency":"PCSO",
+		"requestedamount":"3500.00",
+		"requesteddate":"2016-08-25",
+		"approvaldate":"",
+		"approvedamount":"3000.00",
+	},
+	],
+  },
+  {
+    "id": "px11",   
+    "picture": "images/patient11.jpg",
+    "age": 43,   
+    "name": "Angelita Molina",
+	"gender": "Female",
+	"hphone":"+639208758745",
+	"landline":"+6329748521",
+	"email":"serendipity@choclovers.com",
+	"NOK":"Henrietta Molina-Ignacio",
+	"Relationship":"Sister",
+	"NOKhphone":"+639278526325",
+	"NOKlandline":"+6328453215",
+	"doctor":"Gong Ji-Chul",
+	"institution":"St. Luke's Hospital",
+	"regdate":"2016-10-08",
+	"fundingsource":"Funding Agency",
+	"medication":"Invokana",
+	"initialdose":"100 mg once a day",
+	"startdate":"2016-10-08",
+	"enddate":"",
+	"notes":"Cardiovascular disease, history of hypotension. Elevated haematocrit. Patients will test positive for glycosuria. ",
+	"labs":[
+	{
+		"labname":"HbA1c",
+		},
+		{
+		"labname":"Fasting BG",
+		},
+		{
+		"labname":"2Hr BG",
+		},
+	],
+	"visitdetails":[
+		{
+			"date":"07-Oct-2016",
+			"medicationtaken":"100mg once daily",
+			"remarks":"",
+			"startdate":"08-Oct-2016",
+			"attachment":"yehlab1.pdf",
+		},
+		{
+			"date":"15-Oct-2016",
+			"medicationtaken":"300mg once daily",
+			"remarks":"",
+			"startdate":"16-Oct-2016",
+			"attachment":"yehlab2.pdf",
+		},
+	],
+	"fundingdetails":[
+	{
+	"fundingagency":"PCSO",
+		"requestedamount":"2500.00",
+		"requesteddate":"2016-09-25",
+		"approvaldate":"",
+		"approvedamount":"",
+	},
+	{
+	"fundingagency":"PCSO",
+		"requestedamount":"3500.00",
+		"requesteddate":"2016-08-25",
+		"approvaldate":"",
+		"approvedamount":"",
 	},
 	],
   },

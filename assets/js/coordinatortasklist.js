@@ -38,6 +38,21 @@ amplify.store("taskList", [
 	"requeststatus":"Pending Funding Agency Approval",
 	"requestedproduct":"Lipitor",
 	"lastupdate":"19-Sept-2016",
+	"preferredagent":"fa1",
+	"datesenttoagent":"13-Sept-2016",
+	"message":"This is sample message from coordinator to funding agency",
+	"attachments":[
+	{
+	"file":"pdf/incometax1.jpg",
+	"Title":"Income Tax Return 2015",
+	"Description":"for year 2015",
+	},
+	{
+	"file":"docs/referralletter1.pdf",
+	"Title":"Referral Letter from MD",
+	"Description":"required referral letter",
+	},
+	],
   },
   {
     "id": "tl4", 
@@ -67,15 +82,30 @@ amplify.store("taskList", [
   },
   {
     "id": "tl6",  
-"sn":"RFF-2016-002",	
+	"sn":"RFF-2016-002",	
     "requesttype":"Request for Funding",
 	"requestedby":"Pamela Trinidad",
 	"requestoremail":"sugarnspice@browncorp.com.ph",
 	"contactdetails":"+6329571532",
 	"requestortype":"Institution Rep",
 	"requestdate":"18-Sept-2016",
-	"requeststatus":"Pending Funding Agency Approval",
+	"requeststatus":"Pending Coordinator Action",
 	"requestedproduct":"Lipitor",
 	"lastupdate":"10-Oct-2016",
+	"preferredagent":"fa1",
+	"datesenttoagent":"19-Sept-2016",
+	"message":"test test test",
+	"attachments":[
+	{
+	"file":"pdf/incometax2.jpg",
+	"Title":"Income Tax Return",
+	"Description":"for year 2015",
+	},
+	{
+	"file":"docs/referralletter3.pdf",
+	"Title":"Referral Letter from Pharm Co",
+	"Description":"required referral letter",
+	},
+	],
   },
 ]);
