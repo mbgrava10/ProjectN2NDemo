@@ -1,0 +1,160 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Funding Agency</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/coordinatortasklist.js"></script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var faid = getParameterByName("faid");
+                    
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='fadefault.html?faid=" + faid + "'>Home</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='fafundingrequests.html?faid=" + faid + "'>Request List</a>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='fapxlist.html?faid=" + faid + "'>Patient Tracking</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Documents</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='fadocadd.html?faid=" + faid + "'>Add Document</a></li>";
+                    headStr += "<li><a href='fadoclist.html?faid=" + faid + "'>Uploaded Documents</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert()
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+                    
+					<div class="box">
+                        
+                        <div class="row">
+                            <div class="12u" id='requestlist'>
+                                <script>
+                                    function getParameterByName(name) {
+                                        var url = window.location.href;
+                                        name = name.replace(/[\[\]]/g, "\\$&");
+                                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                            results = regex.exec(url);
+                                        if (!results) return null;
+                                        if (!results[2]) return '';
+                                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                                    }
+
+                                    var faid = getParameterByName("faid");
+
+                                    var listName = "taskList";
+                                    var pxs = amplify.store(listName);
+
+                                    var faName = "fundingagencyList";
+                                    var pds = amplify.store(faName);
+
+                                    var strSel = "";
+
+                                    for (a = 0; a < pds.length; a++)
+                                    {
+                                        var pd = pds[a];
+                                        if(pd.id==faid){
+                                    strSel += "<div style='background-color: #76797f; color: #fff; text-align: center; font-size: 16px; font-weight: bold; padding: 10px; border-radius: 6px;'>";
+                                    strSel += pd.name;
+                                    strSel += "</div><br/><header><h4><span style='color: #0039e6; font-weight: bold'>Request List</span></h4><hr /></header>";
+                                }
+                                    }
+
+                                    strSel += "<div class='table-wrapper'>";
+                                    strSel += "<table><thead><tr><th>SN</th><th>Requested By</th><th>Request Date</th><th>Status</th><th>Last Update Date</th></tr></thead><tbody>";
+                                    
+                                    //alert(faid);
+                                    for (var i = 0; i < pxs.length; i++) {
+                                        
+                                        
+                                        var px = pxs[i];
+                                        var rtype = px.sn.substring(0, 3);
+                                        if (rtype == "RFF" && px.preferredagent == faid) {
+                                        strSel += "<tr>";
+                                        strSel += "<td><a href='farequestdetails.html?id=" + px.id + "&faid=" + faid + "'>" + px.sn + "</a></td>";
+                                        strSel += "<td>" + px.requestedby + "</td>";
+                                        //strSel += "<td>" + px.requestortype + "</td>";
+                                        strSel += "<td>" + px.requestdate + "</td>";
+                                        strSel += "<td>" + px.requeststatus + "</td>";
+                                        //strSel += "<td>" + px.requestedproduct + "</td>";
+                                        strSel += "<td>" + px.lastupdate + "</td>";
+                                        strSel += "</tr>";
+                                    }
+                                    }
+
+
+
+                                    strSel += "</tbody></table></div>";
+                                    document.getElementById("requestlist").innerHTML = strSel;
+                                </script>
+                            </div>
+
+                        </div>
+					</div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

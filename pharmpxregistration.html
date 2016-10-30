@@ -1,0 +1,351 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Patient Details</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/common.js"></script>
+        <script src="assets/js/pxdetails.js"></script>
+        <script src="assets/js/lablist.js"></script>
+        <script src="assets/js/pharmalist.js"></script>
+        <!--<script src="assets\Chart.js-2.3.0\dist\Chart.bundle.js"></script>-->
+        <script src="assets\Chart.js-2.3.0\dist\Chart.js"></script>
+        <!--<script src="assets\Chart.js-2.3.0\dist\Chart.min.js"></script>
+        <script src="assets\Chart.js-2.3.0\dist\Chart.bundle.min.js"></script>-->
+        <style>
+            #pxheader{
+
+            }
+            #pxheader:hover{
+                cursor:pointer;
+                color: #860606;
+            }
+            #contactheader:hover {
+                cursor: pointer;
+                color: #860606;
+            }
+            #nokheader:hover {
+                cursor: pointer;
+                color: #860606;
+            }
+            #referralheader:hover {
+                cursor: pointer;
+                color: #860606;
+            }
+            #productheader:hover {
+                cursor: pointer;
+                color: #860606;
+            }
+        </style>
+        <script type="text/javascript">
+            function showhidediv(divid, iid)
+            {
+                var div = document.getElementById(divid);
+                var ix = document.getElementById(iid);
+                //alert(div);
+                if (div.style.display == 'block') {
+                    div.style.display = 'none';
+                    ix.className = 'fa fa-arrow-circle-right';
+                }
+                else {
+                    div.style.display = 'block';
+                    ix.className = 'fa fa-arrow-circle-down';
+                }
+            }
+        </script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var pharmId = getParameterByName("pharmid");
+                    var prodid = getParameterByName("prodid");
+
+                    var listName = "productList";
+                    var pds = amplify.store(listName);
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdefault.html?pharmid=" + pharmId + "'>Home</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Products</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmproductreg.html?pharmid=" + pharmId + "'>Register Product</a></li>";
+                    headStr += "<li><a href='pharmproductslist.html?pharmid=" + pharmId + "'>Product List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Documents</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='pharmdocadd.html?pharmid=" + pharmId + "'>Add Document</a></li>";
+                    headStr += "<li><a href='pharmdoclist.html?pharmid=" + pharmId + "'>Uploaded Documents</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='pharmpxlist.html?pharmid=" + pharmId + "'>Patient Tracking</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert()
+                    document.getElementById("header").innerHTML = headStr;
+                    var contProdName = document.getElementById("productName");
+                    for(i = 0; i < pds.length; i++)
+                    {
+                        if(pds[i].id == prodid)
+                        {
+                            contProdName.value = pds[i].name;
+                        }
+                    }
+                </script>
+            </header>
+
+			<!-- Main -->
+            <section id="main" class="container">
+                <header>
+                    <h3><b>Enroll Patient</b></h3><hr />
+                </header>
+                <div class="box"><input type="hidden" id="productName"/>
+                    <form method="post" action="#">
+                        <div class ="row uniform 50%"><div style="text-align: left; float:left;"><i id="pxarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Patient Details</span></h4></div></div><hr />
+                        <div id="pxdetails" style="display:block;">
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="name">Patient Name</label><input type="text" name="name" id="name" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="image">Image</label><input type="file" name="image" id="image" value="" />
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="dob">Date of Birth</label><input type="date" name="dob" id="dob" value="" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="salutation">Salutation</label>
+                                    <div class="select-wrapper">
+                                        <select name="salutation" id="salutation">
+                                            <option value="">- Select salutation -</option>
+                                            <option value="">Mr</option>
+                                            <option value="">Ms</option>
+                                            <option value="">Mrs</option>
+                                            <option value="">Madam</option>
+                                            <option value="">Dr</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(narrower)">
+                                    <label>Gender</label>
+                                    <div style="float:left"><input type="radio" id="gendermale" name="gender" /><label for="gendermale"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Male</label></div>
+                                    <div><input type="radio" id="genderfemale" name="gender" /><label for="genderfemale"><i class="fa fa-female" aria-hidden="true"></i>&nbsp;&nbsp;Female</label></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--contact details-->
+                        <div id="contactheader" class="row uniform 50%" onclick="showhidediv('contactdetails', 'contactarrow');"><div style="text-align: left; float:left;"><i id="contactarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Contact Details</span></h4></div></div><hr />
+                        <div id="contactdetails" style="display:none;">
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="homephone">Home Phone</label><input type="text" name="homephone" id="homephone" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="handphone">Hand Phone</label><input type="text" name="handphone" id="handphone" value="" />
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="ofcphone">Office Phone</label><input type="text" name="ofcphone" id="ofcphone" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="email">Email</label><input type="text" name="email" id="email" value="" />
+                                </div>
+                            </div>
+                        </div>
+                      <!--NOK Details-->
+                        <div id="nokheader" class="row uniform 50%" onclick="showhidediv('nokdetails', 'nokarrow');"><div style="text-align: left; float:left;"><i id="nokarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Next-of-Kin (NOK) Details</span></h4></div></div><hr />
+                        <div id="nokdetails" style="display:none;">
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="name">NOK Name</label><input type="text" name="name" id="name" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="salutation">Relationship with Patient</label>
+                                    <div class="select-wrapper">
+                                        <select name="salutation" id="salutation">
+                                            <option value="">- Select relationship -</option>
+                                            <option value="">Parent</option>
+                                            <option value="">Sibling</option>
+                                            <option value="">Husband</option>
+                                            <option value="">Wife</option>
+                                            <option value="">Grandparent</option>
+                                            <option value="">Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="homephone">Home Phone</label><input type="text" name="homephone" id="homephone" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="handphone">Hand Phone</label><input type="text" name="handphone" id="handphone" value="" />
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="ofcphone">Office Phone</label><input type="text" name="ofcphone" id="ofcphone" />
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <label for="email">Email</label><input type="text" name="email" id="email" value="" />
+                                </div>
+                            </div>
+                        </div>
+                        <!--Referral Details-->
+                        <div id="referralheader" class="row uniform 50%" onclick="showhidediv('referraldetails', 'referralarrow');"><div style="text-align: left; float:left;"><i id="referralarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Referral Details</span></h4></div></div><hr />
+                        <div id="referraldetails" style="display:none;">
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="doctor">Referring Doctor</label><input type="text" name="doctor" id="doctor" value="" />
+                                </div>
+                                <div class="6u 12u(mobilep)"><label for="sourceoffunding">Resource Classification</label>
+<select name="sourceoffunding" id="sourceoffunding">
+    <option value="">- Select resource classification -</option>
+    <option value="1">Self</option>
+    <option value="1">Government Agency</option>
+    <option value="1">Sponsor</option>
+    <option value="1">Funding Agency</option>
+</select>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <label for="hospital">Referring Institution</label><input type="text" name="hospital" id="hospital" value="" />
+                                </div>
+                                <div id="divSelectRep" class="6u 12u(mobilep)">
+                                    <script>
+                                        function getParameterByName(name) {
+                                            var url = window.location.href;
+                                            name = name.replace(/[\[\]]/g, "\\$&");
+                                            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                                results = regex.exec(url);
+                                            if (!results) return null;
+                                            if (!results[2]) return '';
+                                            return decodeURIComponent(results[2].replace(/\+/g, " "));
+                                        }
+
+                                        var pharmId = getParameterByName("pharmid");
+                                        //alert(pharmId);
+                                        var listName = "pharmaList";
+                                        var pds = amplify.store(listName);
+                                        //alert(pds.length);
+                                        var strSelect = "";
+                                        strSelect += "<label for='institutionrep'>Institution Rep</label>";
+                                        strSelect += "<select id='institutionrep' name='institutionrep'>";
+                                        strSelect += "<option value=''>- Select rep -</option>";
+                                        if(pds.length > 0)
+                                        {
+                                            for(i=0; i<pds.length; i++)
+                                            {
+                                                var pd = pds[i];
+                                                //alert(pd.pharmid);
+                                                if(pd.pharmid == pharmId)
+                                                {
+                                                    //alert(pd.reps.length);
+                                                    if(pd.reps.length > 0)
+                                                    {
+                                                        for (j = 0; j < pd.reps.length; j++)
+                                                        {
+                                                            var rep = pd.reps[j];
+                                                            strSelect += "<option value='1'>" + rep.repname + "</option>";
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        strSelect += "</select>";
+                                        document.getElementById("divSelectRep").innerHTML = strSelect;
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="productheader" class="row uniform 50%" onclick="showhidediv('productdetails', 'productarrow');"><div style="text-align: left; float:left;"><i id="productarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Product Details</span></h4></div></div><hr />
+                        <div id="productdetails" style="display:none">
+                            <div class="row uniform 50%" >
+                                <div class="6u 12u(narrower)" >
+                                    <div><label for="productname">Product</label><input id="productname" type="text" /></div><br />
+                                    <div><label for="productname">Initial Dose</label><input id="initialdose" type="text" /></div>
+                                    <br />
+                                    <div><label for="productname">Start Date</label><input id="initialdose" type="date" /></div>
+                                </div>
+                                <div class="6u 12u(narrower)">
+                                    <label for="productname">Notes</label><textarea id="notes" rows="9"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row uniform 50%">
+                            <div class="6u 12u(narrower)">
+                                <input type="submit" value="Enroll Patient" class="fit" />
+                            </div>
+                            <div class="6u 12u(narrower)">
+                                <input type="submit" value="Cancel" class="fit" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+               
+
+                
+</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -187,6 +187,48 @@
                                             break;
 
                                         case "RFF":
+                                            var FAList = "fundingagencyList";
+                                            var pfaList = amplify.store(FAList);
+                                            //alert(pDrugList.length);
+                                            if (pfaList.length > 0) {
+                                                for (j = 0; j < pfaList.length; j++) {
+                                                    var pFA = pfaList[j];
+                                                    if (pFA.id == pd.preferredagent) {
+                                                        strSel += "<div class='row uniform 50%'>";
+                                                        strSel += "<div class='3u 12u(narrower)'>";
+                                                        strSel += "Preferred Agency";
+                                                        strSel += "</div>"; //"<div class='6u 12u(narrower)'>"
+                                                        strSel += "<div class='9u 12u(narrower)'>";
+                                                        strSel += "<b>" + pFA.name + "</b>";
+                                                        strSel += "</div>"; //"<div class='6u 12u(narrower)'>"
+                                                        strSel += "</div>"; //end "<div class='row uniform 50%'>";
+                                                        strSel += "<div class='row uniform 50%'>";
+                                                        strSel += "<div class='3u 12u(narrower)'>Primary Contact Person:</div>";
+                                                        strSel += "<div class='9u 12u(narrower)'>";
+                                                        strSel += "<b>" + pFA.contactperson + "</b><br/><span class='icon fa-phone'>&nbsp;" + pFA.contactdetails + "</span><br/><span class='icon fa-envelope'>&nbsp;" + pFA.email + "</span></div>"
+                                                        strSel += "</div>"; //end "<div class='row uniform 50%'>";
+                                                        
+                                                        strSel += "</div>"; //"<div class='12u 12u(narrower)'>"
+                                                        strSel += "<div class='row uniform 50%'>";
+
+                                                        strSel += "<div class='12u 12u(narrower)'>";
+                                                        strSel += "<label for='message' >Message to Agent</label><textarea id='message' rows='4'></textarea>";
+                                                        strSel += "</div>"; //"<div class='6u 12u(narrower)'>"
+                                                        strSel += "</div>"; //end "<div class='row uniform 50%'>";
+
+
+                                                        strSel += "<div class='row'>";
+                                                        strSel += "<div class='6u 12u(narrower)' style='align-self:center'>";
+                                                        strSel += "    <input type='submit' value='Assign' class='fit' />";
+                                                        strSel += "</div>";
+                                                        strSel += "<div class='6u 12u(narrower)'>";
+                                                        strSel += "    <input type='submit' value='Cancel' class='fit' />";
+                                                        strSel += "</div>";
+                                                        strSel += "</div>";
+                                                        //<span class='icon fa-phone'>&nbsp;" + px.contactdetails + "</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class='icon fa-envelope'>&nbsp;<a href='mailto:" + px.email + "'>" + px.email + "</a></span>
+                                                    }
+                                                }
+                                            }
                                             break;
 
                                         default:

@@ -1,0 +1,242 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Funding Agency</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/coordinatortasklist.js"></script>
+        <script src="assets/js/common.js"></script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var faid = getParameterByName("faid");
+                    //alert(faid);
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='fadefault.html?faid=" + faid + "'>Home</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='fafundingrequests.html?faid=" + faid + "'>Request List</a>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='fapxlist.html?faid=" + faid + "'>Patient Tracking</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Documents</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='fadocadd.html?faid=" + faid + "'>Add Document</a></li>";
+                    headStr += "<li><a href='fadoclist.html?faid=" + faid + "'>Uploaded Documents</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert()
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+                    <div id="requestDetails" class="box">
+                        <script>
+                            //get url parameter id
+                            function getParameterByName(name) {
+                                var url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                            }
+
+                            var pId = getParameterByName("id");
+                            var faid = getParameterByName("faid");
+                            //alert(pId)
+                            var listName = "taskList";
+
+                            var strSel = "";
+                            var pds = amplify.store(listName);
+                            var pharmName = "";
+
+                            var faList = "fundingagencyList";
+                            var fas = amplify.store(faList);
+
+                            for (a = 0; a < fas.length; a++)
+                            {
+                                var fa = fas[a];
+                                if(fa.id == faid)
+                                {
+                                    strSel += "<div style='background-color: #76797f; color: #fff; text-align: center; font-size: 16px; font-weight: bold; padding: 10px; border-radius: 6px;'>";
+                                    strSel += fa.name;
+                                    strSel += "</div><br/>";
+                                }
+                            }
+
+                            for (i = 0; i < pds.length; i++) {
+                                var pd = pds[i];
+                                if (pd.id == pId) {
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "	    <div class='12u'>";
+                                    strSel += "<header><h4>Request ID: <span style='color: #0039e6; font-weight: bold'>" + pd.sn + "</span></h4></header>";
+                                    strSel += "	    </div>";
+                                    strSel += "</div><hr/>";//"<div class='row uniform 50%'>";
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "<div>Request Type: <b>" + pd.requesttype + "</b></div>";
+                                    strSel += "<div>Date: <b>" + pd.requestdate + "</b></div>";
+                                    strSel += "<div>Requestor Name: <b>" + pd.requestedby + "</b></div>";
+                                    strSel += "<div><b><span class='icon fa-phone'>&nbsp;" + pd.contactdetails + "</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class='icon fa-envelope'>&nbsp;<a href='mailto:" + pd.requestoremail + "'>" + pd.requestoremail + "</a></span></b></div>";
+                                    strSel += "<div>Requestor Type: <b>" + pd.requestortype + "</b></div>";
+                                    strSel += "<div>Status: <b>" + pd.requeststatus + "</b></div>";
+                                    strSel += "</div>"; //end "<div class='6u 12u(narrower)'>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "<div>Product: <span style='color: #0039e6; font-weight: bold'>" + pd.requestedproduct + "</span></div>";
+
+                                    var drugList = "productList";
+                                    var pDrugList = amplify.store(drugList);
+                                    //alert(pDrugList.length);
+                                    if (pDrugList.length > 0) {
+                                        for (j = 0; j < pDrugList.length; j++) {
+                                            var pDrug = pDrugList[j];
+                                            if (pDrug.name == pd.requestedproduct) {
+                                                pharmName = pDrug.pharmaco;
+                                                strSel += "<div>Company: <b>" + pDrug.pharmaco + "</b></div>";
+                                                strSel += "<div>Product Status: <b>" + pDrug.status + "</b></div>";
+                                                strSel += "<div>Product Rep: <b>" + pDrug.productrep + "</b></div>";
+                                                strSel += "<div><b><span class='icon fa-phone'>&nbsp;" + pDrug.productrepcontact + "</span></b></div>";
+                                            }
+                                        }
+                                    }
+
+                                    strSel += "</div>"; //end "<div class='6u 12u(narrower)'>";
+                                    strSel += "</div><hr>"; //end "<div class='row uniform 50%'>";
+                                    strSel += "<header><h4><span style='color: #0039e6; font-weight: bold'>Coordinator Action</span></h4></header>";
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "<div class='3u 12u(narrower)'>Submitted Date:</div>";
+                                    strSel += "<div class='9u 12u(narrower)'>";
+                                    strSel += pd.datesenttoagent;
+                                    strSel += "</div>"; //end <div class='6u 12u(narrower)'>";
+                                    strSel += "</div>"; //end "<div class='row uniform 50%'>";
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "<div class='3u 12u(narrower)'>Message from Coordinator:</div>";
+                                    strSel += "<div class='9u 12u(narrower)'>";
+                                    strSel += pd.message;
+                                    strSel += "</div>"; //end <div class='6u 12u(narrower)'>";
+                                    strSel += "</div><br/>"; //end "<div class='row uniform 50%'>";
+                                    strSel += "<header><h4><b>Attachments</b></h4></header>";
+                                    strSel += "<div class='table-wrapper'>";
+                                    strSel += "<table><thead><tr><th width='5%'>SN</th><th width='30%'>File</th><th>Description</th></tr></thead><tbody>";
+                                    //alert(strSel);
+                                    if(pd.attachments.length > 0)
+                                    {
+                                        for (var k = 0; k < pd.attachments.length; k++) {
+                                            var pattach = pd.attachments[k];
+                                            strSel += "<tr><td>";
+                                            strSel += k + 1;
+                                            strSel += "</td><td><a href='" + pattach.file + "' target='_blank'>" + pattach.Title + "</a></td>";
+                                            strSel += "<td>" + pattach.Description + "</td>";
+                                            strSel += "</tr>";
+                                        }
+                                    }
+                                    strSel += "</tbody></table></div><hr>";
+                                    strSel += "<header><h4><span style='color: #0039e6; font-weight: bold'>Agent Action</span></h4></header>";
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "<label for='agencystatus'>Approval Status</label><select id='agencystatus'>";
+                                    strSel += "<option value=''>- Select status -</option>";
+                                    strSel += "<option value='1'>Approval 1</option>";
+                                    strSel += "<option value='2'>Approval 2</option>";
+                                    strSel += "<option value='3'>Approval 3</option>";
+                                    strSel += "<option value='3'>For Resubmission</option>";
+                                    strSel += "<option value='3'>Rejected</option>";
+                                    strSel += "</select>";
+                                    strSel += "</div>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "<label for='statusdate'>Approval Date</label><input type='date' id='statusdate'/>";
+                                    strSel += "</div>";//end "<div class='6u 12u(narrower)'>";
+                                    strSel += "</div>";//end "<div class='row uniform 50%'>";
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "<label for='amount'>Requested Funding Amount</label><input type='text' id='amount' />";
+                                    strSel += "</div>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "<label for='disdate'>Disbursement Date</label><input type='date' id='disdate'/>";
+                                    strSel += "</div>";//end "<div class='6u 12u(narrower)'>";
+                                    strSel += "</div>";//end "<div class='row uniform 50%'>";
+                                    strSel += "<div class='row uniform 50%'>";
+                                    strSel += "<div class='12u 12u(narrower)'>";
+                                    strSel += "<label for='notes'>Remarks</label><textarea id='notes' rows='3'></textarea>";
+                                    strSel += "</div>";//end "<div class='6u 12u(narrower)'>";
+                                    strSel += "</div>";//end "<div class='row uniform 50%'>";
+                                    strSel += "<div class='row'>";
+                                    strSel += "<div class='6u 12u(narrower)' style='align-self:center'>";
+                                    strSel += "    <input type='submit' value='Save' class='fit' />";
+                                    strSel += "</div>";
+                                    strSel += "<div class='6u 12u(narrower)'>";
+                                    strSel += "    <input type='submit' value='Cancel' class='fit' />";
+                                    strSel += "</div>";
+                                    strSel += "</div>";
+                                }//end if(pd.id == pId)
+                            }
+                           
+                            document.getElementById("requestDetails").innerHTML = strSel;
+                        </script>
+                        
+                    </div>
+
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

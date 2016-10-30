@@ -15,6 +15,12 @@
         <script src="assets/js/amplify.min.js"></script>
         <script src="assets/js/common.js"></script>
         <script src="assets/js/pxdetails.js"></script>
+        <script src="assets/js/lablist.js"></script>
+        <!--<script src="assets\Chart.js-2.3.0\dist\Chart.bundle.js"></script>-->
+        <script src="assets\Chart.js-2.3.0\dist\Chart.js"></script>
+        <!--<script src="assets\Chart.js-2.3.0\dist\Chart.min.js"></script>
+        <script src="assets\Chart.js-2.3.0\dist\Chart.bundle.min.js"></script>-->
+
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -69,7 +75,8 @@
 			<!-- Main -->
             <section id="main" class="container">
                 <div id="productList" class="box">
-                  <script>
+                   
+                    <script>
                         //get url parameter id
                         function getParameterByName(name) {
                             var url = window.location.href;
@@ -154,8 +161,7 @@
                                 strSel += "	    <label for='notes'><b>Notes</b></label><textarea name='enddate' id='notes' placeholder='" +  px.notes + "'></textarea>";
                                 strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
                                 strSel += "</div><hr>"; // end "<div class='row uniform 50%' >";
-                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4>";
-                                strSel += " <hr>";
+                                
                                 strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Consultation Details</span></h4>";
                                 if(px.visitdetails.length > 0)
                                 {
@@ -186,6 +192,167 @@
                         
                         //alert(strSel);
                         document.getElementById("productList").innerHTML = strSel;
+                    </script>
+                </div>
+                <div id="labdetails" class="box">
+                    <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4><hr />
+                    <div class="row">
+                        <div class="6u 12u(narrower)" >
+                            <canvas id="labs0"></canvas>
+                        </div>
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs1"></canvas>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs2"></canvas>
+                        </div>
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs3"></canvas>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs4"></canvas>
+                        </div>
+                       <div class="6u 12u(narrower)">
+                            <canvas id="labs5"></canvas>
+                        </div>
+                    </div>
+                    
+                    
+                    
+                    
+                    
+
+                    <script>
+                        function getParameterByName(name) {
+                            var url = window.location.href;
+                            name = name.replace(/[\[\]]/g, "\\$&");
+                            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                results = regex.exec(url);
+                            if (!results) return null;
+                            if (!results[2]) return '';
+                            return decodeURIComponent(results[2].replace(/\+/g, " "));
+                        }
+
+                        var pId = getParameterByName("pxid");
+                        //alert(pId)
+                        var listName = "patientList";
+                        var pds = amplify.store(listName);
+                        
+                        function randomHbA1c(minValue)
+                        {
+                            var returnValue;
+                            var rNumber = Math.random();
+                            switch(minValue)
+                            {
+                                case 8:
+                                    if (rNumber < 0.5) {
+                                        returnValue = (1 + rNumber) * minValue;
+                                    }
+                                    else {
+                                        returnValue = minValue;
+                                    }
+                                    break;
+
+                                case 5:
+                                    if (rNumber < 0.6) {
+                                        returnValue = (1 + rNumber) * minValue;
+                                    }
+                                    else
+                                    {
+                                        returnValue = minValue;
+                                    }
+                                    break;
+
+                                default:
+
+                                    break;
+                            }
+
+                            return returnValue;
+                        }
+                        
+
+
+                        for (var i = 0; i < pds.length; i++) {
+                            //alert(i);
+                            var px = pds[i];
+                            if (px.id == pId) {
+                                //strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4>";
+
+                                //strSel += " <hr>";
+                                //document.getElementById("labdetails").innerHTML = strSel;
+                                if (px.labs.length > 0) {
+
+                                   
+
+                                    var labListName = "labList";
+                                    //var labItems = 
+
+
+                                    for (i = 0; i < px.labs.length; i++)
+                                    {
+                                        var labItems = amplify.store(labListName);
+
+                                        if (labItems.length > 0)
+                                        {
+                                            for(j = 0; j < labItems.length; j++)
+                                            {
+                                                var labI = labItems[j];
+                                                if (labI.name == px.labs[i].labname)
+                                                {
+                                                    var labdata = new Array();
+                                                    var labelsInfo = new Array();
+                                                    if(labI.items.length > 0)
+                                                    {
+                                                        for(k=0; k < labI.items.length; k++)
+                                                        {
+                                                            labdata[k] = labI.items[k].value;
+                                                            labelsInfo[k] = labI.items[k].datetaken;
+                                                        }
+                                                    }
+
+                                                    var topLabel = labI.name + " (" + labI.uom + ")";
+                                                    var cnvasid = "labs" + j;
+                                                    //alert(cnvasid);
+                                                    var ctx = document.getElementById(cnvasid).getContext("2d");
+                                                    var newChart = new Chart(ctx, {
+                                                        type: 'line',
+                                                        data: {
+                                                            labels: labelsInfo,
+                                                            datasets: [{
+                                                                label: topLabel,
+                                                                data: labdata,
+                                                                fill: false,
+                                                                borderWidth: 1,
+                                                                borderColor: "#0000ff",
+                                                                pointBorderColor: "#0000ff",
+                                                                pointRadius: 2,
+                                                                pointHoverRadius: 4,
+                                                            }
+                                                            ]
+                                                        },
+                                                        options: {
+                                                            responsive: true
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+
+                                        
+                                    }
+                                    
+                                    //borderDash: [5, 5],
+
+                                    //var divItem = document.getElementById("labdetails");
+                                    //divItem.appendChild(canvas);
+                                }
+                            }
+                        }
                     </script>
                 </div>
 

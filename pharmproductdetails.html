@@ -80,6 +80,7 @@
                             return decodeURIComponent(results[2].replace(/\+/g, " "));
                         }
 
+                        var pharmId = getParameterByName("pharmid");
                         var pId = getParameterByName("id");
                         //alert(pId)
                         var listName = "productList";
@@ -169,12 +170,12 @@
                                 strSel += "                    </select>";
                                 strSel += "				</div>";
                                 strSel += "			</div>";
-                                strSel += "		</div>"; // end "<div class='row uniform 50%'>";
+                                strSel += "		</div><br/>"; // end "<div class='row uniform 50%'>";
                                 
                                 //add document list
                                 //alert(px.documents.length);
                                 if (px.documents.length > 0) {
-                                    strSel += "<header><h4><b>Uploaded Documents</b></h4><hr/></header>";
+                                    strSel += "<header><h4><div style='float:left'><b>Uploaded Documents</b></div><div style='text-align: right;'><a href='pharmdocadd.html?pharmid=" + pharmId + "' class='icon fa-plus'>&nbsp;Add Document</a></div></h4><hr/></header>";
                                     strSel += "<div class='table-wrapper'>";
                                     strSel += "<table><thead><tr><th>File Name</th><th>Version</th><th>Upload Date</th><th>Uploaded By</th><th>Availability</th></tr></thead><tbody>";
 
@@ -193,7 +194,7 @@
                                 }
 
                                 if (px.patients.length > 0) {
-                                    strSel += "<header><h4><b>Enrolled Patients</b></h4><hr/></header>";
+                                    strSel += "<header><h4><div style='float:left;'><b>Enrolled Patients</b></div><div style='text-align: right;'><a href='pharmpxregistration.html?prodid="+ pId + "&pharmid=" + pharmId + "' class='icon fa-plus' >&nbsp;Add Patient</a></div></h4><hr/></header>";
                                     strSel += "<div class='table-wrapper'>";
                                     strSel += "<table><thead><tr><th>Patient Name</th><th>Doctor</th><th>Start Date</th><th>Initial Dose</th><th>Remarks</th></tr></thead><tbody>";
 
