@@ -6,12 +6,14 @@
 -->
 <html>
 	<head>
-		<title>Generic - Alpha by HTML5 UP</title>
+		<title>Funding Agency</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/fundingagencylist.js"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -30,31 +32,26 @@
                         return decodeURIComponent(results[2].replace(/\+/g, " "));
                     }
 
-                    var pharmId = getParameterByName("pharmid");
+                    var faid = getParameterByName("faid");
 
-                    var listName = "productList";
-                    var pds = amplify.store(listName);
                     var headStr = "";
 
                     headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
                     headStr += "<nav id='nav'>";
                     headStr += "<ul>";
-                    headStr += "<li><a href='pharmdefault.html?pharmid=" + pharmId + "'>Home</a></li>";
+                    headStr += "<li><a href='fadefault.html?faid=" + faid + "'>Home</a></li>";
                     headStr += "<li>";
-                    headStr += "<a href='#'>Products</a>";
-                    headStr += "<ul>";
-                    headStr += "<li><a href='pharmproductreg.html?pharmid=" + pharmId + "'>Register Product</a></li>";
-                    headStr += "<li><a href='pharmproductslist.html?pharmid=" + pharmId + "'>Product List</a></li>";
-                    headStr += "</ul>";
+                    headStr += "<a href='fafundingrequests.html?faid=" + faid + "'>Request List</a>";
                     headStr += "</li>";
+                    headStr += "<li><a href='fapxlist.html?faid=" + faid + "'>Patient Tracking</a></li>";
                     headStr += "<li>";
                     headStr += "<a href='#'>Documents</a>";
                     headStr += "<ul>";
-                    headStr += "<li><a href='pharmdocadd.html?pharmid=" + pharmId + "'>Add Document</a></li>";
-                    headStr += "<li><a href='pharmdoclist.html?pharmid=" + pharmId + "'>Uploaded Documents</a></li>";
+                    headStr += "<li><a href='fadocadd.html?faid=" + faid + "'>Add Document</a></li>";
+                    headStr += "<li><a href='fadoclist.html?faid=" + faid + "'>Uploaded Documents</a></li>";
                     headStr += "</ul>";
                     headStr += "</li>";
-                    headStr += "<li><a href='pharmpxlist.html?pharmid=" + pharmId + "'>Patient Tracking</a></li>";
+                    headStr += "<li><a href='faprofile.html?faid=" + faid + "'>Profile</a></li>";
                     headStr += "<li><a href='default.html'>Logout</a></li>";
                     headStr += "</ul>";
                     headStr += "</nav>";
@@ -65,26 +62,84 @@
 
 			<!-- Main -->
 				<section id="main" class="container">
-					<header>
-						<h2>PHARMACY ABC</h2>
-						<p>Default page for Pharmacy ABC</p>
-					</header>
-					<div class="box">
-						<span class="image featured"><img src="images/pic01.jpg" alt="" /></span>
-						<h3>This is a subheading</h3>
-						<p>Cep risus aliquam gravida cep ut lacus amet. Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae ante vestibulum ante. Blandit. Ante accumsan nisi eu placerat gravida placerat adipiscing in risus fusce vitae ac mi accumsan nunc in accumsan tempor blandit aliquet aliquet lobortis. Ultricies blandit lobortis praesent turpis. Adipiscing accumsan adipiscing adipiscing ac lacinia cep. Orci blandit a iaculis adipiscing ac. Vivamus ornare laoreet odio vis praesent nunc lorem mi. Erat. Tempus sem faucibus ac id. Vis in blandit. Nascetur ultricies blandit ac. Arcu aliquam. Accumsan mi eget adipiscing nulla. Non vestibulum ac interdum condimentum semper commodo massa arcu.</p>
-						<div class="row">
-							<div class="6u 12u(mobilep)">
-								<h3>And now a subheading</h3>
-								<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-							</div>
-							<div class="6u 12u(mobilep)">
-								<h3>And another subheading</h3>
-								<p>Adipiscing faucibus nunc placerat. Tempus adipiscing turpis non blandit accumsan eget lacinia nunc integer interdum amet aliquam ut orci non col ut ut praesent. Semper amet interdum mi. Phasellus enim laoreet ac ac commodo faucibus faucibus. Curae lorem ipsum adipiscing ac. Vivamus ornare laoreet odio vis praesent.</p>
-							</div>
-						</div>
-					</div>
-				</section>
+                    <div id="divfa" class='box'>
+                        <script>
+                            //get url parameter id
+                            function getParameterByName(name) {
+                                var url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                            }
+
+                            var pId = getParameterByName("faid");
+
+                            var listName = "fundingagencyList";
+                            var pds = amplify.store(listName);
+
+                            var strSel = "";
+
+                            for (i = 0; i < pds.length; i++) {
+                                var px = pds[i];
+                                if (px.id == pId) {
+                                    strSel += "<header id='faheader'><h3>" + px.name + "</h3><header><hr />";
+                                    strSel += "<div class='row'>";
+                                    strSel += "<div class='3u 12u(narrower)'>";
+                                    strSel += "<img src='" + px.image + "'/>";
+                                    strSel += "</div>"; //end class='3u 12u(narrower)'
+                                    strSel += "<div  class='9u 12u(narrower)'>";
+                                    strSel += "<div>Website: <a href='" + px.website + "'>" + px.website + "</a></div>";
+                                    strSel += "<div>Contact Person: " + px.contactperson + "</div>";
+                                    strSel += "<div><span class='icon fa-phone'>&nbsp;" + px.contactdetails + "</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class='icon fa-envelope'>&nbsp;<a href='mailto:" + px.email + "'>" + px.email + "</a></span></div>";
+                                    strSel += "</br><div>" + px.about.substring(0, 300);
+                                    strSel += "<a href='faprofile.html?faid=" + px.id  + "'>&nbsp;...</a></div>";
+                                    strSel += "</div>"; //class='9u 12u(narrower)'>";
+                                    strSel += "</div><hr>";
+                                    strSel += "<header><h4><span style='color: #0039e6; font-weight: bold'>Approved Fundings</span></h4></header>";
+                                    strSel += "<div class='table-wrapper'>";
+                                    //strSel += "<table><thead><tr><th>Patient Name</th><th>Approval Date</th><th>Amount</th><th>Status</th></tr></thead><tbody>";
+                                    strSel += "<table><thead><tr><th>Patient Name</th><th>Approval Date</th><th>Amount</th></tr></thead><tbody>";
+                                    if (px.patients.length > 0) {
+                                        for (j = 0; j < px.patients.length; j++) {
+                                            var pvisit = px.patients[j];
+                                            if(pvisit.status == "Approved"){
+                                            strSel += "<tr>";
+                                            strSel += "<td><a href='fapxdetails.html?pxid=" + pvisit.pxid + "&faid=" + pId +"'>" + pvisit.name + "</a></td>";
+                                            strSel += "<td>" + pvisit.approvaldate + "</td>";
+                                            strSel += "<td>" + pvisit.amount + "</td>";
+                                            //strSel += "<td>" + pvisit.status + "</td>";
+                                            strSel += "</tr>";
+                                        }
+                                        }
+                                    }
+                                    strSel += "</tbody></table></div>";
+
+                                    //agent details
+                                    strSel += "<header><h4><span style='color: #0039e6; font-weight: bold'>Agents</span></h4></header>";
+                                    strSel += "<div class='table-wrapper'>";
+                                    strSel += "<table><thead><tr><th>Agent Name</th><th>Contact Number</th><th>Email</th></tr></thead><tbody>";
+                                    if (px.agents.length > 0) {
+                                        for (j = 0; j < px.agents.length; j++) {
+                                            var pagent = px.agents[j];
+                                            strSel += "<tr>";
+                                            strSel += "<td>" + pagent.agentname + "</td>";
+                                            strSel += "<td>" + pagent.agentcontact + "</td>";
+                                            strSel += "<td>" + pagent.agentemail + "</td>";
+                                            strSel += "</tr>";
+                                        }
+                                    }
+                                    strSel += "</tbody></table></div>";
+
+                                }
+                            }
+
+                            document.getElementById("divfa").innerHTML = strSel;
+                        </script>
+                    </div>
+</section>
 
 			<!-- Footer -->
 				<footer id="footer">
