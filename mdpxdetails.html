@@ -14,6 +14,9 @@
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <script src="assets/js/amplify.min.js"></script>
         <script src="assets/js/pxdetails.js"></script>
+        <script src="assets/js/lablist.js"></script>
+        <!--<script src="assets\Chart.js-2.3.0\dist\Chart.bundle.js"></script>-->
+        <script src="assets\Chart.js-2.3.0\dist\Chart.js"></script>
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -21,30 +24,40 @@
             <!-- Header -->
             <header id="header">
                 <h1><a href="default.html">PROJECT N2N</a></h1>
-                <nav id="nav">
-                    <ul>
-                        <li><a href="coordinatordefault.html">Request List</a></li>
-                        <li>
-                            <a href="#">Partners</a>
-                            <ul>
-                                <li><a href="coordinatorpharmalist.html">Pharma Companies</a></li>
-                                <li><a href="coordinatorfaview.html">Funding Agencies</a></li>
-                                <li><a href="#">Medical Institutions</a></li>
-                                <li><a href="coordinatormdlist.html">Doctors</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="coordinatorpxlist.html">Patient List</a></li>
-                        <li>
-                            <a href="#">Settings</a>
-                            <ul>
-                                <li><a href="#">Monitoring Parameters</a></li>
-                                <li><a href="#">Publications</a></li>
-                                <li><a href="#">Reports</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="default.html">Logout</a>
-                    </ul>
-                </nav>
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var mdid = getParameterByName("mdid");
+
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mddefault.html?mdid=" + mdid + "'>My Profile</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Patients</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mdpxregistration.html?mdid=" + mdid + "'>Register Patient</a></li>";
+                    headStr += "<li><a href='mdpxlist.html?mdid=" + mdid + "'>Patient List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='mdreferences.html?mdid=" + mdid + "'>References</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert(headStr);
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
             </header>
 
 			<!-- Main -->
@@ -132,8 +145,6 @@
                                 strSel += "	    <br/><label for='notes'><b>Notes</b></label><textarea name='enddate' id='notes' placeholder='" +  px.notes + "'></textarea>";
                                 strSel += " </div>"; //end <div class='6u 12u(narrower)'>";
                                 strSel += "</div><hr>"; // end "<div class='row uniform 50%' >";
-                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4>";
-                                strSel += " <hr>";
                                 strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Consultation Details</span></h4>";
                                 if(px.visitdetails.length > 0)
                                 {
@@ -152,28 +163,6 @@
 
                                     strSel += "</tbody></table></div>";
                                 }
-                                strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Funding Details</span></h4>";
-                                if(px.fundingdetails.length > 0)
-                                {
-                                    strSel += "<div class='table-wrapper'>";
-                                    strSel += "<table><thead><tr><th>Funding Agency</th><th>Requested Date</th><th>Approval Date</th><th>Requested Amount</th><th>Approved Amount</th></tr></thead><tbody>";
-                                    var tAmountApproved = 0;
-                                    var tAmountRequested = 0;
-                                    for (j = 0; j < px.fundingdetails.length; j++) {
-                                        var pfa = px.fundingdetails[j];
-                                        tAmountApproved = tAmountApproved + parseInt(pfa.approvedamount);
-                                        tAmountRequested = tAmountRequested + parseInt(pfa.requestedamount);
-                                        strSel += "<tr>";
-                                        strSel += "<td>" + pfa.fundingagency + "</td>";
-                                        strSel += "<td>" + pfa.requesteddate + "</td>";
-                                        strSel += "<td>" + pfa.approvaldate + "</td>";
-                                        strSel += "<td>" + pfa.requestedamount + "</td>";
-                                        strSel += "<td>" + pfa.approvedamount + "</td>";
-                                        strSel += "</tr>";
-                                    }
-                                    strSel += "<tr><td>Totals</td><td></td><td></td><td>" + tAmountRequested + ".00</td><td>" + tAmountApproved + ".00</td></tr>"
-                                    strSel += "</tbody></table></div>";
-                                }
                                 }
 
                             }
@@ -181,6 +170,155 @@
                         document.getElementById("productList").innerHTML = strSel;
                     </script>
                 </div>
+                <div id="labdetails" class="box">
+                    <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4><hr />
+                    <div class="row">
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs0"></canvas>
+                        </div>
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs1"></canvas>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs2"></canvas>
+                        </div>
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs3"></canvas>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs4"></canvas>
+                        </div>
+                        <div class="6u 12u(narrower)">
+                            <canvas id="labs5"></canvas>
+                        </div>
+                    </div>
+                    <script>
+                        function getParameterByName(name) {
+                            var url = window.location.href;
+                            name = name.replace(/[\[\]]/g, "\\$&");
+                            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                results = regex.exec(url);
+                            if (!results) return null;
+                            if (!results[2]) return '';
+                            return decodeURIComponent(results[2].replace(/\+/g, " "));
+                        }
+
+                        var pId = getParameterByName("pxid");
+                        //alert("pxid: " + pId);
+                        var listName = "patientList";
+                        var pds = amplify.store(listName);
+
+                        function randomHbA1c(minValue) {
+                            var returnValue;
+                            var rNumber = Math.random();
+                            switch (minValue) {
+                                case 8:
+                                    if (rNumber < 0.5) {
+                                        returnValue = (1 + rNumber) * minValue;
+                                    }
+                                    else {
+                                        returnValue = minValue;
+                                    }
+                                    break;
+
+                                case 5:
+                                    if (rNumber < 0.6) {
+                                        returnValue = (1 + rNumber) * minValue;
+                                    }
+                                    else {
+                                        returnValue = minValue;
+                                    }
+                                    break;
+
+                                default:
+
+                                    break;
+                            }
+
+                            return returnValue;
+                        }
+
+
+                        //alert(pds.length);
+                        for (var i = 0; i < pds.length; i++) {
+                            //alert(i);
+                            var px = pds[i];
+                            if (px.id == pId) {
+                                //alert("pxid=" + px.id);
+                                //strSel += " <h4><span style='color: #3333cc; font-weight: bold;'>Monitoring Parameters</span></h4>";
+
+                                //strSel += " <hr>";
+                                //document.getElementById("labdetails").innerHTML = strSel;
+                                if (px.labs.length > 0) {
+
+
+
+                                    var labListName = "labList";
+                                    //var labItems =
+
+
+                                    for (a = 0; a < px.labs.length; a++) {
+                                        var labItems = amplify.store(labListName);
+
+                                        if (labItems.length > 0) {
+                                            for (j = 0; j < labItems.length; j++) {
+                                                var labI = labItems[j];
+                                                //alert(px.labs[a].labname);
+                                                if (labI.name == px.labs[a].labname) {
+                                                    var labdata = new Array();
+                                                    var labelsInfo = new Array();
+                                                    if (labI.items.length > 0) {
+                                                        for (k = 0; k < labI.items.length; k++) {
+                                                            labdata[k] = labI.items[k].value;
+                                                            labelsInfo[k] = labI.items[k].datetaken;
+                                                        }
+                                                    }
+
+                                                    var topLabel = labI.name + " (" + labI.uom + ")";
+                                                    var cnvasid = "labs" + j;
+                                                    //alert(cnvasid);
+                                                    var ctx = document.getElementById(cnvasid).getContext("2d");
+                                                    var newChart = new Chart(ctx, {
+                                                        type: 'line',
+                                                        data: {
+                                                            labels: labelsInfo,
+                                                            datasets: [{
+                                                                label: topLabel,
+                                                                data: labdata,
+                                                                fill: false,
+                                                                borderWidth: 1,
+                                                                borderColor: "#0000ff",
+                                                                pointBorderColor: "#0000ff",
+                                                                pointRadius: 2,
+                                                                pointHoverRadius: 4,
+                                                            }
+                                                            ]
+                                                        },
+                                                        options: {
+                                                            responsive: true
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                        }
+
+
+                                    }
+
+                                    //borderDash: [5, 5],
+
+                                    //var divItem = document.getElementById("labdetails");
+                                    //divItem.appendChild(canvas);
+                                }
+                            }
+                        }
+                    </script>
+                </div>
+
 
                 
 </section>

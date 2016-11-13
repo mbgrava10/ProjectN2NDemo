@@ -1,0 +1,234 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Coordinator Request List</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/coordinatortasklist.js"></script>
+        <script type="text/javascript">
+            function showhidediv(divid, iid) {
+                var div = document.getElementById(divid);
+                var ix = document.getElementById(iid);
+                //alert(div);
+                if (div.style.display == 'block') {
+                    div.style.display = 'none';
+                    ix.className = 'fa fa-arrow-circle-right';
+                }
+                else {
+                    div.style.display = 'block';
+                    ix.className = 'fa fa-arrow-circle-down';
+                }
+            }
+        </script>
+
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var mdid = getParameterByName("mdid");
+
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mddefault.html?mdid=" + mdid + "'>My Profile</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Patients</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mdpxregistration.html?mdid=" + mdid + "'>Register Patient</a></li>";
+                    headStr += "<li><a href='mdpxlist.html?mdid=" + mdid + "'>Patient List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='mdreferences.html?mdid=" + mdid + "'>References</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert(headStr);
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+                    <div id="requestList" class="box">
+                        <form method="post" action="#">
+                            <div class="row uniform 50%"><div style="text-align: left; float:left;"><i id="pxarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Patient Details</span></h4></div></div><hr />
+                            <div id="pxdetails" style="display:block;">
+                                <div class="row uniform 50%">
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="name">Patient Name</label><input type="text" name="name" id="name" />
+                                    </div>
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="image">Image</label><input type="file" name="image" id="image" value="" />
+                                    </div>
+                                </div>
+                                <div class="row uniform 50%">
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="dob">Date of Birth</label><input type="date" name="dob" id="dob" value="" />
+                                    </div>
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="salutation">Salutation</label>
+                                        <div class="select-wrapper">
+                                            <select name="salutation" id="salutation">
+                                                <option value="">- Select salutation -</option>
+                                                <option value="">Mr</option>
+                                                <option value="">Ms</option>
+                                                <option value="">Mrs</option>
+                                                <option value="">Madam</option>
+                                                <option value="">Dr</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row uniform 50%">
+                                    <div class="6u 12u(narrower)">
+                                        <label>Gender</label>
+                                        <div style="float:left"><input type="radio" id="gendermale" name="gender" /><label for="gendermale"><i class="fa fa-male" aria-hidden="true"></i>&nbsp;&nbsp;Male</label></div>
+                                        <div><input type="radio" id="genderfemale" name="gender" /><label for="genderfemale"><i class="fa fa-female" aria-hidden="true"></i>&nbsp;&nbsp;Female</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--contact details-->
+                            <div id="contactheader" class="row uniform 50%" onclick="showhidediv('contactdetails', 'contactarrow');"><div style="text-align: left; float:left;"><i id="contactarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Contact Details</span></h4></div></div><hr />
+                            <div id="contactdetails" style="display:none;">
+                                <div class="row uniform 50%">
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="homephone">Home Phone</label><input type="text" name="homephone" id="homephone" />
+                                    </div>
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="handphone">Hand Phone</label><input type="text" name="handphone" id="handphone" value="" />
+                                    </div>
+                                </div>
+                                <div class="row uniform 50%">
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="ofcphone">Office Phone</label><input type="text" name="ofcphone" id="ofcphone" />
+                                    </div>
+                                    <div class="6u 12u(mobilep)">
+                                        <label for="email">Email</label><input type="text" name="email" id="email" value="" />
+                                    </div>
+                                </div>
+                            </div>
+                           <!--Referral Details-->
+                            <div id="referralheader" class="row uniform 50%" onclick="showhidediv('referraldetails', 'referralarrow');"><div style="text-align: left; float:left;"><i id="referralarrow" class="fa fa-arrow-circle-down"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Referral Details</span></h4></div></div><hr />
+                            <div id="referraldetails" style="display:block;">
+                                <script>
+                                    function getParameterByName(name) {
+                                        var url = window.location.href;
+                                        name = name.replace(/[\[\]]/g, "\\$&");
+                                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                            results = regex.exec(url);
+                                        if (!results) return null;
+                                        if (!results[2]) return '';
+                                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                                    }
+
+                                    var mdid = getParameterByName("mdid");
+
+
+                                    var listName = "doctorProfile";
+                                    var mdlist = amplify.store(listName);
+
+                                    var strSel = "";
+
+                                    for(a=0; a < mdlist.length; a++)
+                                    {
+                                        var md = mdlist[a];
+                                        if(md.id == mdid)
+                                        {
+                                            strSel += " <div class='row uniform 50%'>";
+                                            strSel += " <div class='6u 12u(mobilep)'>";
+                                            strSel += " <label for='doctor'>Referring Doctor</label><input type='text' name='doctor' id='doctor' value='" + md.name +"' readonly/>";
+                                            strSel += " </div>";
+                                            strSel += " <div class='6u 12u(mobilep)'>";
+                                            strSel += " <label for='sourceoffunding'>Resource Classification</label>";
+                                            strSel += " <select name='sourceoffunding' id='sourceoffunding'>";
+                                            strSel += " <option value=''>- Select resource classification -</option>";
+                                            strSel += " <option value='1'>Self</option>";
+                                            strSel += " <option value='1'>Government Agency</option>";
+                                            strSel += " <option value='1'>Sponsor</option>";
+                                            strSel += " <option value='1'>Funding Agency</option>";
+                                            strSel += "  </select>";
+                                            strSel += " </div>";
+                                            strSel += " </div>";
+                                        }
+                                    }
+                                    document.getElementById("referraldetails").innerHTML = strSel;
+                                </script>
+                               
+                            </div>
+                            <div id="productheader" class="row uniform 50%" onclick="showhidediv('productdetails', 'productarrow');"><div style="text-align: left; float:left;"><i id="productarrow" class="fa fa-arrow-circle-right"></i></div><div style="float:left;"><h4><span style='color: #3333cc; font-weight: bold;'>Product Details</span></h4></div></div><hr />
+                            <div id="productdetails" style="display:none">
+                                <div class="row uniform 50%">
+                                    <div class="12u 12u(narrower)">
+                                        <div><label for="productname">Product</label><input id="productname" type="text" /></div>
+                                    </div>
+                                    <div class="12u 12u(narrower)">
+                                        <label for="productname">Notes</label><textarea id="notes" rows="4"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(narrower)">
+                                    <input type="submit" value="Submit" class="fit" />
+                                </div>
+                                <div class="6u 12u(narrower)">
+                                    <input type="submit" value="Cancel" class="fit" />
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

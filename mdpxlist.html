@@ -1,0 +1,173 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Doctor's Patient List</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/pxdetails.js"></script>
+        <script src="assets/js/doctorprofile.js"></script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var mdid = getParameterByName("mdid");
+
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mddefault.html?mdid=" + mdid + "'>My Profile</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Patients</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mdpxregistration.html?mdid=" + mdid + "'>Register Patient</a></li>";
+                    headStr += "<li><a href='mdpxlist.html?mdid=" + mdid + "'>Patient List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='mdreferences.html?mdid=" + mdid + "'>References</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert(headStr);
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+                    <div id="pxList" class="box">
+                        <script>
+
+                            function getParameterByName(name) {
+                                var url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                            }
+
+                            //var pharmId = getParameterByName("pharmid");
+                            //var pxId = getParameterByName("pxid");
+                            //alert(pxId);
+
+                            function isEven(n) {
+                                return n % 2 == 0;
+                            }
+
+                            function isOdd(n) {
+                                return Math.abs(n % 2) == 1;
+                            }
+
+                            var mdid = getParameterByName("mdid");
+
+                            var mdname = "";
+                            var mdlistName = "doctorProfile";
+                            var mdlist = amplify.store(mdlistName);
+
+                            for (a = 0; a < mdlist.length; a++)
+                            {
+                                var md = mdlist[a];
+                                if(md.id == mdid)
+                                {
+                                    mdname = md.name;
+                                }
+                            }
+                            
+                            var listName = "patientList";
+                            var pxs = amplify.store(listName);
+                            //alert(pxs.length);
+                            var strSel = "";
+                            var count = 0;
+                            strSel += "<header><span style='font-size:18px; font-weight: bold;'>My Patient List</span><hr/></header>";
+                            for (var i = 0; i < pxs.length; i++) {
+
+                                var px = pxs[i];
+                                //var imgLoc = px.image.replace(); #edf1f7
+                                if (px.doctor == mdname)
+                                {
+                                    count = count + 1;
+                                    strSel += "<div class='row uniform' ";
+                                    if (isEven(count))
+                                    {
+                                        strSel += "style='background-color:#edf1f7;border: 1px solid #d8d8d8; border-radius: 10px; margin-left: 5px; margin-top: 20px; '>";
+
+                                    }
+                                    else
+                                    {
+                                        strSel += "style='border: 1px solid #d8d8d8; border-radius: 10px; margin-left: 5px; margin-top: 20px; '>";
+
+                                    }
+                                    strSel += "<div class='3u 3u(narrower)' style='padding-top:10px;'><img src='" + px.picture + "' style='border-radius:50%'/></div>";
+                                    strSel += "<div class='9u 12u(narrower)' style='padding-top:10px;'>";
+                                    strSel += "<div><a href='mdpxdetails.html?pxid=" + px.id + "&mdid=" + mdid +"'><span style='font-size:16px; font-weight:bold;'>" + px.name + "</span></a></div>";
+                                    strSel += "<div>Registration Date: " + px.regdate + "</div>";
+                                    strSel += "<div>Source of Funding: <b>" + px.fundingsource + "</b></div>";
+                                    strSel += "<div>Medication: <b>" + px.medication + "</b></div>";
+                                    strSel += "</div>"; //<div class='9u 12u(narrower)'>
+                                    strSel += "</div>"; //<div class='row uniform'>
+                                }
+                            }// end  for (var i = 0; i < pxs.length; i++) {
+
+                           
+                            //alert(strSel);
+                            document.getElementById("pxList").innerHTML = strSel;
+                        </script>
+                    </div>
+
+
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

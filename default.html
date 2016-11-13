@@ -83,10 +83,13 @@
                         url = "coordinatordefault.html";
                         break;
                     case "fa1":
-                        url = "fadefault.html?faid=fa1";
-                        break;
                     case "fa2":
-                        url = "fadefault.html?faid=fa2";
+                        url = "fadefault.html?faid=" + username;
+                        break;
+                    
+                    case "md1":
+                    case "md2":
+                        url = "mddefault.html?mdid=" + username;
                         break;
                     default:
                         url = "default.html";

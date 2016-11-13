@@ -1,0 +1,178 @@
+﻿<!DOCTYPE HTML>
+<!--
+	Alpha by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Doctor Profile</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+        <script src="assets/js/amplify.min.js"></script>
+        <script src="assets/js/doctorprofile.js"></script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+            <!-- Header -->
+            <header id="header">
+                <script>
+
+                    function getParameterByName(name) {
+                        var url = window.location.href;
+                        name = name.replace(/[\[\]]/g, "\\$&");
+                        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                            results = regex.exec(url);
+                        if (!results) return null;
+                        if (!results[2]) return '';
+                        return decodeURIComponent(results[2].replace(/\+/g, " "));
+                    }
+
+                    var mdid = getParameterByName("mdid");
+
+                    var headStr = "";
+
+                    headStr += "<h1><a href='#'>PROJECT N2N</a></h1>";
+                    headStr += "<nav id='nav'>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mddefault.html?mdid="+ mdid +"'>My Profile</a></li>";
+                    headStr += "<li>";
+                    headStr += "<a href='#'>Patients</a>";
+                    headStr += "<ul>";
+                    headStr += "<li><a href='mdpxregistration.html?mdid=" + mdid + "'>Register Patient</a></li>";
+                    headStr += "<li><a href='mdpxlist.html?mdid=" + mdid + "'>Patient List</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</li>";
+                    headStr += "<li><a href='mdreferences.html?mdid=" + mdid + "'>References</a></li>";
+                    headStr += "<li><a href='default.html'>Logout</a></li>";
+                    headStr += "</ul>";
+                    headStr += "</nav>";
+                    //alert(headStr);
+                    document.getElementById("header").innerHTML = headStr;
+                </script>
+            </header>
+
+			<!-- Main -->
+				<section id="main" class="container">
+                    <div id="requestList" class="box">
+                        <script>
+                            function getParameterByName(name) {
+                                var url = window.location.href;
+                                name = name.replace(/[\[\]]/g, "\\$&");
+                                var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                                    results = regex.exec(url);
+                                if (!results) return null;
+                                if (!results[2]) return '';
+                                return decodeURIComponent(results[2].replace(/\+/g, " "));
+                            }
+
+                            var mdid = getParameterByName("mdid");
+
+
+                            var listName = "doctorProfile";
+                            var mdlist = amplify.store(listName);
+
+                            var strSel = "";
+
+                            strSel += "<header><h3><b>My Profile</b></h3><hr/></header>";
+
+                            for (i = 0; i < mdlist.length; i++)
+                            {
+                                var md = mdlist[i];
+                                if(md.id == mdid)
+                                {
+                                    strSel += "<div class='row uniform'>";
+                                    strSel += "<div class='12u'>";
+                                    strSel += "<h4><span style='color: #3333cc; font-weight: bold;' >" + md.name + "</span></h4>";
+                                    strSel += "</div>";
+                                    strSel += "<div class='3u 12u(narrower)' style='text-align:center;'>";
+                                    strSel += "<img src='" + md.image + "' style='border-radius:50%'/>";
+                                    strSel += "</div>";// end <class='3u 12u(narrower)'>
+                                    strSel += "<div class='9u 12u(narrower)'>";
+                                    strSel += "<div>Affiliation: <b>" + md.affiliation + "</b></div>";
+                                    strSel += "<div>Department: " + md.department + "</div>";
+                                    strSel += "<div>Specialty: " + md.specialty + "</div>";
+                                    strSel += "<div><span class='icon fa-phone'>&nbsp;&nbsp;" + md.contactnumber + "</span></div>";
+                                    strSel += "<div><span class='icon fa-envelope'>&nbsp;&nbsp;<a href='mailto:" + md.email + "'>" + md.email + "</a></span></div>";
+                                    strSel += "<div>Registration Date: " + md.regdate + "</div>";
+                                    strSel += "</div>";// end <class='9u 12u(narrower)'>
+                                    strSel += "</div>";// end <div class='row uniform'>
+                                    strSel += "<hr/><div class='row' style='margin-bottom:5px;'>";
+                                    strSel += "<h4><span style='color: #666666; font-weight: bold;' >My Recent Activities</span></h4>";
+                                    
+                                    if(md.activities.length > 0)
+                                    {
+                                        var aLength = md.activities.length;
+                                        if (aLength > 5)
+                                        {
+                                            for (a = 0; a < 5 ; a++) {
+                                                var act = md.activities[a];
+                                                strSel += "<div class='12u 12u(narrower)' style='border: 1px solid #666666; border-radius:10px; margin-left:30px;margin-bottom:10px;width:94%;padding-top: 5px;padding-bottom: 5px;'>";
+                                                strSel += "<div>" + act.activitytype + " " + act.donefor + "</div>";
+                                                strSel += "<div>" + act.purpose + "</div>";
+                                                strSel += "<div>Date: <b>" + act.datedone + "</b></div>";
+                                                strSel += "<div>Status: <b>" + act.status + "</b></div>";
+                                                strSel += "</div>";
+                                                strSel += "<div></div>";
+                                            }
+                                            strSel += "";
+                                        }
+                                        else
+                                        {
+                                            for (b = 0; b < aLength; b++) {
+                                                var act = md.activities[b];
+                                                strSel += "<div class='12u 12u(narrower)' style='border: 1px solid #666666; border-radius:10px; margin-left:30px;margin-bottom:10px;width:94%; padding-top: 5px;padding-bottom: 5px;'>";
+                                                strSel += "<div>" + act.activitytype + " " + act.donefor + "</div>";
+                                                strSel += "<div>" + act.purpose + "</div>";
+                                                strSel += "<div>Date: <b>" + act.datedone + "</b></div>";
+                                                strSel += "<div>Status: <b>" + act.status + "</b></div>";
+                                                strSel += "</div>";
+                                                strSel += "<div></div>";
+                                            }
+                                        }
+                                        
+                                    }
+                                    else {
+                                        strSel += "<div class='12u'>No recent activities</div>";
+                                    }
+                                    strSel += "</div><hr/>";
+                                }
+                            }
+                            
+                            document.getElementById("requestList").innerHTML = strSel;
+                        </script>
+                    </div>
+				</section>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+						<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+						<li><a href="#" class="icon fa-google-plus"><span class="label">Google+</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollgress.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
