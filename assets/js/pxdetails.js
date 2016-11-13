@@ -352,7 +352,7 @@ amplify.store("patientList", [
 	"enddate":"",
 	"notes":"Cardiovascular disease, history of hypotension. Elevated haematocrit. Patients will test positive for glycosuria. ",
 	"labs":[
-	{
+		{
 		"labname":"HbA1c",
 		},
 		{
@@ -408,7 +408,7 @@ amplify.store("patientList", [
 	"Relationship":"Brother",
 	"NOKhphone":"+632096541234",
 	"NOKlandline":"+6328529632",
-	"doctor":"Kang Ha Neul",
+	"doctor":"Park Bo Gum",
 	"institution":"St. Luke's Hospital",
 	"regdate":"2016-10-08",
 	"fundingsource":"Funding Agency",
@@ -540,7 +540,7 @@ amplify.store("patientList", [
 	"Relationship":"Sister",
 	"NOKhphone":"+639288522145",
 	"NOKlandline":"+6328529632",
-	"doctor":"Gong Ji-Chul",
+	"doctor":"Park Bo Gum",
 	"institution":"St. Luke's Hospital",
 	"regdate":"2016-10-08",
 	"fundingsource":"Funding Agency",
@@ -606,7 +606,7 @@ amplify.store("patientList", [
 	"Relationship":"Sister",
 	"NOKhphone":"+639278526325",
 	"NOKlandline":"+6328453215",
-	"doctor":"Gong Ji-Chul",
+	"doctor":"Park Bo Gum",
 	"institution":"St. Luke's Hospital",
 	"regdate":"2016-10-08",
 	"fundingsource":"Funding Agency",
